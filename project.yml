@@ -1,0 +1,62 @@
+# XcodeGen spec — run `xcodegen` after adding/removing files.
+name: Twinly
+options:
+  bundleIdPrefix: com.exercise
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+# Settings are spelled out (rather than relying on XcodeGen's presets) so the
+# spec works with the standalone xcodegen binary, which ships without them.
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: 4R22536S9U
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SDKROOT: iphoneos
+    IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+    PRODUCT_NAME: $(TARGET_NAME)
+    LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    CLANG_ENABLE_MODULES: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+  configs:
+    Debug:
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+      ONLY_ACTIVE_ARCH: YES
+      DEBUG_INFORMATION_FORMAT: dwarf
+      ENABLE_TESTABILITY: YES
+      GCC_OPTIMIZATION_LEVEL: "0"
+    Release:
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      SWIFT_COMPILATION_MODE: wholemodule
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      VALIDATE_PRODUCT: YES
+targets:
+  Twinly:
+    type: application
+    platform: iOS
+    sources:
+      - path: Twinly
+        excludes:
+          - "Resources/Celebs/**"
+      - path: Twinly/Resources/Celebs
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.exercise.Twinly
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Twinly
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.entertainment
+        INFOPLIST_KEY_NSCameraUsageDescription: "Twinly uses the camera for your selfie. It's analysed on your iPhone and never leaves it."
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Save your Twinly card to your photo library."
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic

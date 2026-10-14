@@ -1,0 +1,14 @@
+.venv/
+tools/cache/
+__pycache__/
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+.DS_Store
+# Generated celebrity data (hundreds of MB): rebuild with the README pipeline.
+Twinly/Resources/Celebs/
+
+# Model weights: InsightFace licence covers non-commercial research use, not redistribution.
+# Regenerate with tools/convert_model.py.
+Twinly/Resources/FaceEmbedder.mlpackage/
